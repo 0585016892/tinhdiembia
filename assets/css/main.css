@@ -1,3 +1,11 @@
+html, body {
+  overscroll-behavior: none;
+}
+* {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 body {
   background: linear-gradient(135deg, #e0f2fe, #f8fafc);
   font-family: 'Segoe UI', system-ui, sans-serif;
@@ -24,4 +32,7 @@ body {
 
 button.btn-lg {
   border-radius: 14px;
+}
+button {
+  touch-action: manipulation;
 }

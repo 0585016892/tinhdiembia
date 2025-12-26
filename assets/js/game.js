@@ -47,24 +47,14 @@ function renderPlayers() {
     return;
   }
 
-  // 🔢 Sort: điểm cao → thấp
-  AppData.players.sort((a, b) => b.point - a.point);
-
   AppData.players.forEach((p, i) => {
-    const rankBadge =
-      i === 0 ? '🥇' :
-      i === 1 ? '🥈' :
-      i === 2 ? '🥉' : '';
-
     container.innerHTML += `
       <div class="col-12">
         <div class="card p-3 rounded-4 mb-2 shadow-sm">
 
-          <!-- HÀNG 1: TÊN + HẠNG + XOÁ -->
+          <!-- TÊN + XOÁ -->
           <div class="d-flex justify-content-between align-items-center">
-            <div class="fw-semibold fs-5">
-              ${rankBadge} ${p.name}
-            </div>
+            <div class="fw-semibold fs-5">${p.name}</div>
 
             <button class="btn btn-outline-danger btn-sm"
               onclick="removePlayer(${i})">
@@ -72,7 +62,7 @@ function renderPlayers() {
             </button>
           </div>
 
-          <!-- HÀNG 2: ĐIỂM -->
+          <!-- ĐIỂM -->
           <div class="text-center my-3">
             <span class="fw-bold display-6
               ${p.point > 0 ? 'text-success' : p.point < 0 ? 'text-danger' : 'text-secondary'}">
@@ -80,17 +70,13 @@ function renderPlayers() {
             </span>
           </div>
 
-          <!-- HÀNG 3: NÚT + - -->
+          <!-- + - -->
           <div class="d-flex justify-content-center gap-4">
-            <button class="btn btn-outline-danger btn-lg px-4"
-              onclick="changePoint(${i}, -1)">
-              ➖
-            </button>
+            <button style="width: 50%;" class="btn btn-outline-danger btn-lg px-4"
+              onclick="changePoint(${i}, -1)">➖</button>
 
-            <button class="btn btn-outline-success btn-lg px-4"
-              onclick="changePoint(${i}, 1)">
-              ➕
-            </button>
+            <button style="width: 50%;" class="btn btn-outline-success btn-lg px-4"
+              onclick="changePoint(${i}, 1)">➕</button>
           </div>
 
         </div>
@@ -100,14 +86,11 @@ function renderPlayers() {
 }
 
 
+
 function changePoint(i, v) {
   if (AppData.locked) return;
 
   AppData.players[i].point += v;
-
-  // 🔢 sort lại ngay khi đổi điểm
-  AppData.players.sort((a, b) => b.point - a.point);
-
   save();
   renderPlayers();
 }
