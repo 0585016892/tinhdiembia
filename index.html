@@ -2,80 +2,273 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Tính điểm</title>
-<link rel="manifest" href="manifest.json">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Billiard Cash">
-
-<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Bootstrap -->
+  <title>Billiard Hưng - Pro Scoring</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-  <!-- Animate -->
   <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
 
-  <!-- Custom -->
-  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+
+    :root {
+      --primary: #00f2ff; /* Cyan Neon */
+      --secondary: #7000ff; /* Purple Neon */
+      --deep-bg: #030712;
+      --glass: rgba(255, 255, 255, 0.03);
+    }
+
+    body {
+      background: var(--deep-bg);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 242, 255, 0.15) 0%, transparent 40%);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    /* Hiệu ứng kính chủ đạo */
+    .glass-box {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 40px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Tiêu đề kiểu Cyberpunk */
+    .brand-header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(to bottom, #fff 30%, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0;
+    }
+
+    .logo-vibe {
+      font-size: 50px;
+      filter: drop-shadow(0 0 15px var(--primary));
+      margin-bottom: 15px;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Input kiểu Futuristic */
+    .neon-input-group {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 15px 20px;
+      margin: 30px 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .neon-input-group:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+      transform: scale(1.02);
+    }
+
+    .neon-input-group label {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--primary);
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .neon-input-group input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 800;
+      width: 100%;
+      outline: none;
+    }
+
+    /* Nút chọn giá kiểu Chips */
+    .price-chips {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 35px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+    }
+
+    .chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      padding: 8px 18px;
+      border-radius: 12px;
+      white-space: nowrap;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chip.active {
+      background: var(--primary);
+      color: var(--deep-bg);
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary);
+    }
+
+    /* Nút Start bùng nổ */
+    .btn-cyber {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      border-radius: 20px;
+      padding: 20px;
+      width: 100%;
+      color: #fff;
+      font-weight: 900;
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .btn-cyber::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(45deg);
+      transition: 0.5s;
+    }
+
+    .btn-cyber:hover::after {
+      left: 120%;
+    }
+
+    .btn-cyber:active {
+      transform: scale(0.95);
+    }
+
+    /* Thông tin chân trang */
+    .footer-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 35px;
+      opacity: 0.6;
+    }
+
+    .stat-item {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .stat-item i {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px;
+      color: var(--secondary);
+    }
+  </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+<div class="glass-box animate__animated animate__zoomIn">
+  <div style="position:absolute; bottom:-20px; right:-20px; width:80px; height:80px; background:var(--secondary); filter:blur(60px); opacity:0.4;"></div>
 
-  <div class="card shadow-lg border-0 rounded-4 p-4 animate__animated animate__fadeInUp"
-       style="max-width:420px; width:100%;">
+  <div class="text-center brand-header">
+    <span class="logo-vibe">🎱</span>
+    <h1>BILLIARD HƯNG</h1>
+    <p class="small text-white mt-1">ĐƯA HẾT TIỀN ĐÂY</p>
+  </div>
 
-    <!-- LOGO -->
-    <div class="text-center mb-3">
-      <div class="rounded-circle bg-success text-white d-inline-flex
-                  align-items-center justify-content-center"
-           style="width:70px;height:70px;font-size:32px;">
-        🎱
-      </div>
+  <div class="neon-input-group">
+    <label><i class="bi bi-cpu-fill"></i> Chỉnh giá mỗi điểm</label>
+    <div class="d-flex align-items-center">
+      <input type="number" id="moneyPerPoint" value="30000" inputmode="numeric">
+      <span class="text-muted fw-bold">VNĐ</span>
     </div>
+  </div>
 
-    <h3 class="text-center fw-bold mb-4">Billiard</h3>
+  <div class="price-chips">
+    <div class="chip" onclick="setPrice(20000, this)">20,000</div>
+    <div class="chip active" onclick="setPrice(30000, this)">30,000</div>
+    <div class="chip" onclick="setPrice(50000, this)">50,000</div>
+    <div class="chip" onclick="setPrice(100000, this)">100,000</div>
+  </div>
 
-    <!-- INPUT -->
-    <div class="mb-3">
-      <label class="form-label fw-semibold">Số tiền / 1 điểm</label>
-      <div class="input-group">
-        <span class="input-group-text bg-light">₫</span>
-        <input type="number" id="moneyPerPoint"
-               class="form-control form-control-lg"
-               value="30000">
-      </div>
+  <button class="btn-cyber" onclick="handleStart()">
+    Băm <i class="bi bi-bolt-fill ms-1"></i>
+  </button>
+
+  <div class="footer-stats">
+    <div class="stat-item">
+      <i class="bi bi-shield-lock"></i>
+      ENCRYPTED
     </div>
-
-    <!-- BUTTON -->
-    <button class="btn btn-success btn-lg w-100 mt-2"
-            onclick="startGame()">
-      BẮT ĐẦU CHƠI
-    </button>
-
-    <!-- FOOTER -->
-    <div class="text-center text-muted mt-3 small">
-      Tính tiền nhanh • Dễ dùng • Chuẩn bida
+    <div class="stat-item">
+      <i class="bi bi-activity"></i>
+      REALTIME
     </div>
-
+    <div class="stat-item">
+      <i class="bi bi-stars"></i>
+      PREMIUM
+    </div>
   </div>
 </div>
 
 <script src="assets/js/data.js"></script>
 <script src="assets/js/game.js"></script>
 <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
+  function setPrice(val, el) {
+    document.getElementById('moneyPerPoint').value = val;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    if (navigator.vibrate) navigator.vibrate(15);
+  }
+
+  function handleStart() {
+    const btn = document.querySelector('.btn-cyber');
+    btn.innerHTML = 'Loading...';
+    btn.style.boxShadow = '0 0 30px var(--primary)';
+    
+    setTimeout(() => {
+      if (typeof startGame === "function") {
+        startGame();
+      } else {
+        alert("Giá: " + document.getElementById('moneyPerPoint').value);
+        btn.innerHTML = 'Initialize <i class="bi bi-bolt-fill ms-1"></i>';
+      }
+    }, 600);
+  }
 </script>
+
 </body>
 </html>

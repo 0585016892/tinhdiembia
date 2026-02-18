@@ -2,83 +2,288 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Tính điểm 🎱</title>
-<link rel="manifest" href="manifest.json">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Billiard Cash">
-
-<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Bootstrap -->
+  <title>Billiard Hưng - Quản Lý Cơ Thủ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
 
-  <!-- Custom -->
-  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+
+    :root {
+      --primary: #00f2ff; /* Cyan */
+      --secondary: #7000ff; /* Purple */
+      --deep-bg: #030712;
+      --card-bg: rgba(17, 24, 39, 0.8);
+      --text-main: #f8fafc;
+    }
+
+    body {
+      background-color: var(--deep-bg);
+      background-image: 
+        radial-gradient(circle at 0% 0%, rgba(0, 242, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, rgba(112, 0, 255, 0.08) 0%, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      padding-bottom: 120px;
+    }
+
+    /* Header Futuristic */
+    .custom-header {
+      background: rgba(3, 7, 18, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand-title {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+      background: linear-gradient(to right, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    /* Player Card - Cyber Style */
+/* Tinh chỉnh Thẻ người chơi nhỏ gọn hơn */
+.player-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px; /* Bo góc nhỏ lại một chút */
+  padding: 12px 16px; /* Giảm padding từ 20px xuống 12px-16px */
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.player-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 3px; height: 100%; /* Thanh dọc mảnh hơn */
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+}
+
+/* Avatar nhỏ lại */
+.avatar-cyber {
+  width: 40px; /* Giảm từ 50px xuống 40px */
+  height: 40px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1.5px solid var(--primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--primary);
+}
+
+/* Điểm số chính nhỏ lại nhưng vẫn sắc nét */
+.main-score {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.2rem; /* Giảm từ 3rem xuống 2.2rem */
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  margin: 5px 0;
+}
+
+/* Các nút điều khiển thấp hơn */
+.control-btn {
+  flex: 1;
+  border: none;
+  padding: 10px; /* Giảm từ 15px xuống 10px */
+  border-radius: 12px;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Font chữ phụ */
+.text-info {
+  font-size: 0.55rem !important; /* Nhỏ lại để cân đối */
+}
+
+h6.fw-bold {
+  font-size: 0.95rem; /* Tên người chơi nhỏ lại */
+  margin-bottom: 0;
+}
+
+/* Thu nhỏ tiêu đề Current Score */
+.score-label-small {
+  font-size: 0.5rem;
+  color: var(--primary);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+    .btn-minus {
+      background: rgba(251, 113, 133, 0.1);
+      color: #fb7185;
+      border: 1px solid rgba(251, 113, 133, 0.2);
+    }
+
+    .btn-plus {
+      background: rgba(0, 242, 255, 0.1);
+      color: var(--primary);
+      border: 1px solid rgba(0, 242, 255, 0.2);
+    }
+
+    .btn-plus:active {
+      background: var(--primary);
+      color: var(--deep-bg);
+      box-shadow: 0 0 20px var(--primary);
+    }
+
+    /* Bottom Bar */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px;
+      background: linear-gradient(to top, var(--deep-bg) 80%, transparent);
+      z-index: 1000;
+    }
+
+    .btn-cyber-action {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 18px;
+      padding: 18px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      width: 100%;
+      box-shadow: 0 10px 20px rgba(112, 0, 255, 0.3);
+      letter-spacing: 1px;
+    }
+
+    /* Modal Styling */
+    .modal-content {
+      background: #111827;
+      border: 1px solid var(--primary);
+      border-radius: 30px;
+      color: white;
+    }
+
+    .form-control-cyber {
+      background: rgba(0,0,0,0.5) !important;
+      border: 1px solid rgba(0, 242, 255, 0.3) !important;
+      color: white !important;
+      border-radius: 15px;
+      padding: 15px;
+    }
+
+    .form-control-cyber:focus {
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 15px rgba(0, 242, 255, 0.2) !important;
+    }
+
+    .swal2-popup {
+      background: #111827 !important;
+      border-radius: 25px !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+  </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-<!-- HEADER -->
-<div class="sticky-top bg-white shadow-sm">
-  <div class="container py-3 d-flex justify-content-between align-items-center">
-    <h5 class="mb-0 fw-bold">🎱 Người chơi</h5>
-
-    <button class="btn btn-success btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#addPlayerModal">
-      <i class="bi bi-person-plus"></i> Thêm
+<div class="custom-header">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-2">
+      <h5 class="mb-0 brand-title">ĐƯA TIỀN CHO HƯNG</h5>
+    </div>
+    <button class="btn btn-outline-info btn-sm rounded-pill px-3 fw-bold" 
+            style="border-color: var(--primary); color: var(--primary);"
+            data-bs-toggle="modal" data-bs-target="#addPlayerModal">
+      + Thêm người chơi
     </button>
   </div>
 </div>
 
-<!-- CONTENT -->
-<div class="container my-4">
-  <div id="players" class="row g-3"></div>
+<div class="container my-4 px-3">
+  <div id="players" class="d-flex flex-column gap-3">
+    <div class="player-card animate__animated animate__fadeInUp">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="avatar-cyber">H</div>
+                <div>
+                    <h6 class="mb-0 fw-bold">Hưng (Admin)</h6>
+                    <small class="text-info" style="font-size: 0.6rem; letter-spacing: 1px;color: white;">ID: 001_MASTER</small>
+                </div>
+            </div>
+            <button class="btn-delete" style="background:none; border:none; color: #475569;"><i class="bi bi-x-lg"></i></button>
+        </div>
+        
+        <div class="text-center py-2">
+            <div style="font-size: 0.6rem; color: var(--primary); letter-spacing: 2px;">CURRENT_SCORE</div>
+            <div class="main-score text-success">15</div>
+        </div>
 
-  <button class="btn btn-warning btn-lg w-100 mt-4"
-          onclick="calculateMoney()">
-    💰 TÍNH TIỀN
-  </button>
-</div>
-
-<!-- MODAL THÊM NGƯỜI -->
-<div class="modal fade" id="addPlayerModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content rounded-4 border-0">
-
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold">➕ Thêm người chơi</h5>
-        <button class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body">
-        <label class="form-label">Tên người chơi</label>
-        <input type="text"
-               id="playerName"
-               class="form-control form-control-lg"
-               placeholder="Ví dụ: Hùng, Tuấn...">
-      </div>
-
-      <div class="modal-footer">
-        <button  class="btn btn-light" data-bs-dismiss="modal">Huỷ</button>
-        <button class="btn btn-success" onclick="addPlayer()">Thêm</button>
-      </div>
-
+        <div class="d-flex gap-2">
+            <button class="control-btn btn-minus"><i class="bi bi-dash-lg"></i></button>
+            <button class="control-btn btn-plus"><i class="bi bi-plus-lg"></i></button>
+        </div>
     </div>
   </div>
 </div>
 
-<!-- SCRIPT -->
+<div class="bottom-bar">
+  <button class="btn btn-cyber-action" onclick="calculateMoney()">
+    Tính tiền  <i class="bi bi-cpu-fill ms-2"></i>
+  </button>
+</div>
+
+<div class="modal fade" id="addPlayerModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered mx-3">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold" style="font-family: 'Orbitron';">NGƯỜI CHƠI MỚI</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="small text-info fw-bold mb-2 d-block">TÊN NGƯỜI CHƠI</label>
+          <input type="text" id="playerName" class="form-control form-control-cyber" placeholder="Enter name...">
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <button class="btn btn-link text-white-50 text-decoration-none" data-bs-dismiss="modal">Đóng</button>
+        <button class="btn btn-info px-4 rounded-pill fw-bold" style="background: var(--primary); border:none;" onclick="handleAddPlayer()">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script src="assets/js/data.js"></script>
 <script src="assets/js/game.js"></script>
+
+<script>
+  function handleAddPlayer() {
+    const name = document.getElementById('playerName').value;
+    if(name.trim() !== "") {
+        if(typeof addPlayer === 'function') addPlayer(); 
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addPlayerModal'));
+        modal.hide();
+        document.getElementById('playerName').value = "";
+    }
+  }
+</script>
+
 </body>
 </html>

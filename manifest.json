@@ -1,20 +1,33 @@
 {
-  "name": "Billiard Cash",
-  "short_name": "Billiard Cash",
+  "name": "Billiard Hưng Master - NextGen Scoring",
+  "short_name": "Billiard Hưng",
+  "description": "Hệ thống tính điểm bida chuyên nghiệp giao diện Cyberpunk",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#111111",
-  "theme_color": "#198754",
+  "orientation": "portrait",
+  "background_color": "#030712",
+  "theme_color": "#00f2ff",
   "icons": [
     {
       "src": "assets/icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "assets/icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["utilities", "sports"],
+  "screenshots": [
+    {
+      "src": "assets/icons/screenshot.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "Giao diện tính điểm chuyên nghiệp"
     }
   ]
 }
